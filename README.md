@@ -10,9 +10,9 @@
 ## Step by step
 
 * manually create the Container Registry at GCP (TODO in CI)
-* cd k8s-llm/node-kube/app
+* cd k8s-llm/node-kube/appgcloud compute disks create pg-data-disk --size 50GB --zone us-central1-a
 * Build and tag
-* docker build -t us-east1-docker.pkg.dev/winter-field-401115/dev-artifact-repository-docker/dev-node-image:v1.2 .
+* docker build -t us-south1-docker.pkg.dev/winter-field-401115/dev-artifact-repository-docker/node-with-db:v1.0 .
 
 * docker push us-east1-docker.pkg.dev/winter-field-401115/dev-artifact-repository-docker/dev-node-image:v1.2
 
@@ -29,6 +29,7 @@
 
 Extras
 - create Artifact Repository via terraform
+- create Compute engine disk via terraform if needed for PersistentVolumes
 - connect to a database
 - connect via authorized networks only
 - how to manage secrets?

@@ -31,7 +31,7 @@ app.get("/todos", (req, res) => {
       res.json(data);
     })
     .catch(() => {
-      res.json("Something went wrong.");
+      res.json("Something went wrong. or no data loaded in DB");
     });
 });
 

@@ -5,11 +5,17 @@ Documentation: https://medium.com/globant/kubernetes-deployment-deploy-nodejs-ap
 - at `app` build the image:
 docker build -t {example} .
 
-- if building in mac M1 (architecture arm):
+- build for Artifact registry at GCP:
+docker build -t <REGION_OF_CLUSTER>-docker.pkg.dev/<PROJECT_ID>/<ARTIFACT_REPOSITORY_NAME>/<IMAGE_NAME>:<TAG> .
+docker build -t us-south1-docker.pkg.dev/winter-field-401115/artifact-registry/node-with-db:v1.0 .
+docker buildx build --platform linux/amd64 -t us-south1-docker.pkg.dev/winter-field-401115/artifact-registry/node-with-db:v1.1 .
+
+
+- **IMPORTANT** if building in mac M1 (architecture arm):
 docker buildx build --platform linux/amd64 -t {example} .
 
 - then push it to the registry (example to Docker Hub or Google Artifact Registry):
-docker push {example}
+docker push <REGION_OF_CLUSTER>-docker.pkg.dev/<PROJECT_ID>/<ARTIFACT_REPOSITORY_NAME>/<IMAGE_NAME>:<TAG>
 
 - then `cd ../kubernetes`
 

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node
-        image: gcr.io/winter-field-401115/node-kubernetes:v0.0.1
+        image: us-south1-docker.pkg.dev/winter-field-401115/artifact-registry/node-with-db:v1 # UPDATE w/ your image
         env:
         - name: NODE_ENV
           value: "development"

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: node-app-api-image
-          image: cooervo/kube-node:amdv1.0
+          image: cooervo/kube-node:amdv1.0 # add my personal docker hub but can be stored in GCP Artifact Registry 
           ports:
             - containerPort: 5500
           #  resources:

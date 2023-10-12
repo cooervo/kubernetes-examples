@@ -1,8 +1,6 @@
 # Deploying a Node App to Google Cloud with Kubernetes
 
-## Want to learn how to build this?
-
-Check out the [post](https://testdriven.io/deploying-a-node-app-to-google-cloud-with-kubernetes).
+[Documentation](https://testdriven.io/deploying-a-node-app-to-google-cloud-with-kubernetes).
 
 ## Want to use this project?
 
@@ -64,9 +62,13 @@ $ gcloud container clusters get-credentials node-kubernetes --zone us-central1-a
 Build and push the image to the [Container Registry](https://cloud.google.com/container-registry/):
 
 ```sh
-$ gcloud auth configure-docker
-$ docker build -t gcr.io/<PROJECT_ID>/node-kubernetes:v0.0.1 .
-$ docker push gcr.io/<PROJECT_ID>/node-kubernetes:v0.0.1
+gcloud auth configure-docker
+
+docker build -t <REGION_OF_CLUSTER>-docker.pkg.dev/<PROJECT_ID>/<ARTIFACT_REPOSITORY_NAME>/<IMAGE_NAME>:<TAG> .
+docker build -t us-south1-docker.pkg.dev/winter-field-401115/artifact-registry/node-with-db:v1.0 .
+
+docker push <REGION_OF_CLUSTER>-docker.pkg.dev/<PROJECT_ID>/<ARTIFACT_REPOSITORY_NAME>/<IMAGE_NAME>:<TAG>
+docker push us-south1-docker.pkg.dev/winter-field-401115/artifact-registry/node-with-db:v1.0
 ```
 
 #### Secrets
@@ -120,7 +122,7 @@ $ kubectl exec <POD_NAME> --stdin --tty -- createdb -U sample todos
 
 #### Node
 
-Update the image name *kubernetes/node-deployment-updated.yaml* and then create the deployment:
+Update the image name _kubernetes/node-deployment-updated.yaml_ and then create the deployment:
 
 ```sh
 $ kubectl create -f ./kubernetes/node-deployment-updated.yaml
