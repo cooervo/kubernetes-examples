@@ -1,5 +1,7 @@
 A simple example of a node app deployed and accessible to the whole public.
 
+Documentation: https://medium.com/globant/kubernetes-deployment-deploy-nodejs-application-on-the-gke-505e5f60d2de 
+
 - at `app` build the image:
 docker build -t {example} .
 
