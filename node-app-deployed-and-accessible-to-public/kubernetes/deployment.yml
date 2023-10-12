@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment
+  labels:
+    name: node-app-deployment
+    app: node-app
+  namespace: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: node-app-pod
+      app: node-app
+  template:
+    metadata:
+      name: node-app-pod
+      labels:
+        name: node-app-pod
+        app: node-app
+    spec:
+      containers:
+        - name: node-app-api-image
+          image: cooervo/kube-node:amdv1.0
+          ports:
+            - containerPort: 5500
+          #  resources:
+          #    limits:
+          #      cpu: "1"
+          #      memory: "512Mi"
+          #    requests:
+          #      cpu: "500m"
+          #      memory: "256Mi"

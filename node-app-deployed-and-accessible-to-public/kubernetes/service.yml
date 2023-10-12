@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-service
+  labels:
+    name: node-app-service
+    app: node-app
+  namespace: development
+spec:
+  type: LoadBalancer
+  selector:
+    name: node-app-pod
+    app: node-app
+  ports:
+    - name: http
+      port: 5500 # this Service port (to receive connections externally)
+      targetPort: 3300 # the Pod port (to send connections to)
