@@ -4,7 +4,6 @@
     a. connect via authorized networks only
     b. firewalls
 1. run python + flask server locally.
-2. check it works
 3. build image in docker
 4. Artifact Repository
     a. provision via terraform
@@ -24,4 +23,4 @@
 
 ## Done: 
 
-- [x] running server locally via `flask --app {file-name} run` as in `flask --app app run`
+- [x] Running server locally via `flask --app {file-name} run` as in `flask --app app run`

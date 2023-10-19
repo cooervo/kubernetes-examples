@@ -1,6 +1,3 @@
-/*
-  imports
-*/
 console.log(`===> serverjs init`);
 
 const express = require("express");
@@ -10,16 +7,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const knex = require("./db/knex");
 
-/*
-  middleware
-*/
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-/*
-  routes
-*/
 
 app.get("/", (req, res) => {
   res.json("pong!");
@@ -86,10 +75,6 @@ app.delete("/todos/:id", (req, res) => {
       res.json("Something went wrong.");
     });
 });
-
-/*
-  run server
-*/
 
 app.listen(PORT, () => {
   console.log(`Node server.js listening on port: ${PORT}`);
