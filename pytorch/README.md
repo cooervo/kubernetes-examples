@@ -3,8 +3,14 @@
 0. Networking
     a. connect via authorized networks only
     b. firewalls
-1. run python + flask server locally.
-3. build image in docker
+1. run python + flask server locally with:
+    
+       flask --app {file-name} run` as in `flask --app app run
+
+3. build image with Dockefile
+    a. build image with  `docker build -t {name} .`
+    b. run image with `docker run -it -p 5001:5001 -d {name}`
+    c. go to http://localhost:5001/ (currently won't work with https)
 4. Artifact Repository
     a. provision via terraform
     b. push docker image to Artifact Repository
@@ -23,4 +29,3 @@
 
 ## Done: 
 
-- [x] Running server locally via `flask --app {file-name} run` as in `flask --app app run`
