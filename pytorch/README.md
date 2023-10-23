@@ -1,31 +1,46 @@
-## Todo steps
+## Steps
 
 0. Networking
     a. connect via authorized networks only
     b. firewalls
-1. run python + flask server locally with:
-    
+- [x] Run python + flask server locally with:
+        
+       cd api/
        flask --app {file-name} run` as in `flask --app app run
 
-3. build image with Dockefile
-    a. build image with  `docker build -t {name} .`
-    b. run image with `docker run -it -p 5001:5001 -d {name}`
-    c. go to http://localhost:5001/ (currently won't work with https)
-4. Artifact Repository
-    a. provision via terraform
-    b. push docker image to Artifact Repository
-5. GKE
-    a. provision cluster via terraform
-    b. deploy app via helm?
-6. Compute engine disk for persistency
-    a. provision via terraform
-    b. mount disk to GKE cluster
-7. Redis (for cache or auth if needed)
-    a. provision via terraform
-    b. deploy via helm?
-    c. CRUD in python
-8. ArgoCD for Cluster Deployment
-9. Train a model in pytorch simple Q/A of fictional character 
+- [x] Build image with Dockerfile and run it locally
+    - [x] build image with  `docker build -t {name} .`
+    - [x] run image with `docker run -it -p 5001:5001 -d {name}`
+    - [x] go to http://localhost:5001/ (currently won't work with https) you should see app running
+
+- [x] Create GCP storage bucket for terraform state backend and use it's name at main.tf
+
+- [ ] Artifact Repository
+    - [x] provision via terraform
+    - [ ] push (amd64 compatible) docker image to Artifact Repository so it works in linux hosts, example:
+
+          docker buildx build \
+            --platform linux/amd64 \
+            -t us-central1-docker.pkg.dev/{PROJECT_ID}/{ARTIFACT_REPOSITORY_ID}/{NAME}:{VERSION} \
+  .
+ 
+
+- [ ] GKE
+    - [ ] provision cluster via terraform
+    - [ ] deploy flask in cluster (via helm?)
+
+- [ ] Compute engine disk for persistency
+    - [ ] provision via k8s with StorageClass
+    - [ ] mount disk to GKE cluster
+
+- [ ] **ArgoCD** for Cluster Deployment
+
+- [ ] Redis (for cache or auth if needed)
+    - [ ] provision via terraform
+    - [ ] deploy via helm?
+    - [ ] CRUD in python
+
+- [ ] Train a model in pytorch simple Q/A of fictional character 
 
 ## Done: 
 
