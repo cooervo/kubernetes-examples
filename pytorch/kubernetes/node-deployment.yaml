@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node
+  labels:
+    name: node
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      # serviceAccountName: gke-artifact-registry-service-account
+      containers:
+        - name: node
+          # image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1 # UPDATE w/ your image
+          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1 # UPDATE w/ your image
+          # env:
+          # - name: PORT
+          #   value: "3000"
+      restartPolicy: Always

@@ -3,9 +3,14 @@
 0. Networking
     a. connect via authorized networks only
     b. firewalls
+- [x] Install micromamba
+    - [X] brew install micromamba
+    - [x] micromamba shell init -s {your-shell} -p ~/micromamba
 - [x] Run python + flask server locally with:
         
        cd api/
+       micromamba env create --file environment.yml
+
        flask --app {file-name} run` as in `flask --app app run
 
 - [x] Build image with Dockerfile and run it locally
@@ -17,16 +22,18 @@
 
 - [ ] Artifact Repository
     - [x] provision via terraform
-    - [ ] push (amd64 compatible) docker image to Artifact Repository so it works in linux hosts, example:
+    - [x] docker build (amd64 compatible) docker image to Artifact Repository so it works in linux hosts, example:
 
           docker buildx build \
             --platform linux/amd64 \
-            -t us-central1-docker.pkg.dev/{PROJECT_ID}/{ARTIFACT_REPOSITORY_ID}/{NAME}:{VERSION} \
-  .
- 
+            -t {REGION}-docker.pkg.dev/{PROJECT_ID}/{ARTIFACT_REPOSITORY_ID}/{NAME}:{VERSION} .
+    - [x] push (amd64 compatible) docker image to Artifact Repository:
+
+            docker push {NAME}:{VERSION}
+
 
 - [ ] GKE
-    - [ ] provision cluster via terraform
+    - [ ] provision cluster via terraform (docu: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
     - [ ] deploy flask in cluster (via helm?)
 
 - [ ] Compute engine disk for persistency
