@@ -13,12 +13,9 @@ EXPOSE 5001
 COPY app.py .
 
 # Activate the Conda environment and run flask server
-# CMD ["/bin/bash", "-c", "source activate env-app && flask run --host=0.0.0.0 --port=5001"]
-# CMD ["/bin/bash", "-c", "conda activate env-app && flask run --host=0.0.0.0 --port=5001"]
 CMD /opt/conda/envs/env-app/bin/flask run --host=0.0.0.0 --port=5001
 
-
-
+# TODO these packages are pending installation
 # RUN micromamba install ffmpeg
 # RUN micromamba install x264
 # RUN micromamba install openh264

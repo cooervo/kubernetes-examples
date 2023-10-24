@@ -20,7 +20,7 @@
 
 - [x] Create GCP storage bucket for terraform state backend and use it's name at main.tf
 
-- [ ] Artifact Repository
+- [x] Artifact Repository
     - [x] provision via terraform
     - [x] docker build (amd64 compatible) docker image to Artifact Repository so it works in linux hosts, example:
 
@@ -32,9 +32,10 @@
             docker push {NAME}:{VERSION}
 
 
-- [ ] GKE
-    - [ ] provision cluster via terraform (docu: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
-    - [ ] deploy flask in cluster (via helm?)
+- [x] GKE
+    - [x] provision cluster via terraform (docu: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
+    - [x] deploy flask in cluster
+    - [ ] Helm how does it fit?
 
 - [ ] Compute engine disk for persistency
     - [ ] provision via k8s with StorageClass
