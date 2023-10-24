@@ -13,7 +13,8 @@ EXPOSE 5001
 COPY app.py .
 
 # Activate the Conda environment and run flask server
-CMD /opt/conda/envs/env-app/bin/flask run --host=0.0.0.0 --port=5001
+CMD micromamba run -n env-app flask run --host=0.0.0.0 --port=5001
+
 
 # TODO these packages are pending installation
 # RUN micromamba install ffmpeg
