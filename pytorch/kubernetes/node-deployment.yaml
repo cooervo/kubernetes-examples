@@ -19,7 +19,7 @@ spec:
       containers:
         - name: node
           # image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1 # UPDATE w/ your image
-          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1 # UPDATE w/ your image
+          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.2 # UPDATE w/ your image
           # env:
           # - name: PORT
           #   value: "3000"
