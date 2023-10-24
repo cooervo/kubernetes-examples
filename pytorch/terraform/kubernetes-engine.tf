@@ -1,4 +1,3 @@
-# documentation: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke
 variable "gke_username" {
   default     = ""
   description = "gke username"
@@ -20,10 +19,6 @@ data "google_container_engine_versions" "gke_version" {
   version_prefix = "1.27."
 }
 
-# resource "google_service_account" "default" {
-#   account_id   = "kubernetes-service-account"
-#   display_name = "Service Account"
-# }
 
 resource "google_container_cluster" "cluster" {
   name     = "gke-${var.environment}"
@@ -31,14 +26,6 @@ resource "google_container_cluster" "cluster" {
   enable_autopilot = true
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
-
-#   node_config {
-#     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-#     service_account = google_service_account.default.email
-#     oauth_scopes = [
-#       "https://www.googleapis.com/auth/cloud-platform"
-#     ]
-#   }
 }
 
 # # Separately Managed Node Pool
