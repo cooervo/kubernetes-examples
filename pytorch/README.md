@@ -10,7 +10,7 @@
         
        cd api/
        micromamba env create --file environment.yml
-
+       micromamba activate {env-name}
        flask --app {file-name} run` as in `flask --app app run
 
 - [x] Build image with Dockerfile and run it locally
