@@ -15,7 +15,6 @@ COPY app.py .
 # Activate the Conda environment and run flask server
 CMD micromamba run -n env-app flask run --host=0.0.0.0 --port=5001
 
-
 # TODO these packages are pending installation
 # RUN micromamba install ffmpeg
 # RUN micromamba install x264
