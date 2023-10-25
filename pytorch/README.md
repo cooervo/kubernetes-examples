@@ -31,17 +31,27 @@
 
             docker push {NAME}:{VERSION}
 
-
 - [x] GKE
     - [x] provision cluster via terraform (docu: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
     - [x] deploy flask in cluster
     - [ ] Helm how does it fit?
 
+- [ ] Big Query
+    - [x] provision via terraform
+    - [x] add a sample data set, user table and insert sample user
+    - [ ] Add connection to BigQuery from flask/python (k8s pod) app and return to user 
+
+- [ ] Install Pytorch and use a model
+    - [ ] test sentiment analysis model works locally
+    - [ ] test sentiment analysis model works in k8s cluster
+
 - [ ] Compute engine disk for persistency
     - [ ] provision via k8s with StorageClass
     - [ ] mount disk to GKE cluster
 
-- [ ] **ArgoCD** for Cluster Deployment
+- [ ] **ArgoCD** for Cluster Deployment ?
+
+- [ ] **Cloud Build** for CI/CD ?
 
 - [ ] Redis (for cache or auth if needed)
     - [ ] provision via terraform
