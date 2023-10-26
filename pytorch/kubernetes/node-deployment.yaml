@@ -18,5 +18,5 @@ spec:
       # serviceAccountName: gke-artifact-registry-service-account
       containers:
         - name: node
-          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.4 # UPDATE w/ your image
+          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.5 # UPDATE w/ your image
       restartPolicy: Always

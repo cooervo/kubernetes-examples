@@ -39,6 +39,7 @@
 - [ ] Big Query
     - [x] provision via terraform
     - [x] add a sample data set, user table and insert sample user
+    - [x] Add connection to BigQuery from flask/python locally
     - [ ] Add connection to BigQuery from flask/python (k8s pod) app and return to user 
 
 - [ ] Install Pytorch and use a model
