@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: workload-identity-tutorial@winter-field-401115.iam.gserviceaccount.com
+  name: workload-identity-user
+  namespace: default
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,8 +23,9 @@ spec:
       labels:
         app: node
     spec:
-      # serviceAccountName: gke-artifact-registry-service-account
+      serviceAccountName: workload-identity-user
       containers:
         - name: node
+          # image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.5 # UPDATE w/ your image
           image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.5 # UPDATE w/ your image
       restartPolicy: Always
