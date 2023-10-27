@@ -1,5 +1,5 @@
 resource "google_container_cluster" "cluster" {
-  name               = "tutorial"
+  name               = "gke-cluster-${var.environment}"
   location           = var.region
   project            = var.project_id
   lifecycle {
@@ -20,7 +20,7 @@ resource "google_container_cluster" "cluster" {
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "tutorial-cluster-node-pool"
+  name       = "node-pool-${var.environment}"
   location   = var.region
   project    = var.project_id
   cluster    = google_container_cluster.cluster.name
@@ -60,28 +60,20 @@ resource "google_service_account" "workload-identity-user-sa" {
   display_name = "Service Account For Workload Identity"
 }
 
+// needed to pull images from Artifact Registry
 resource "google_project_iam_member" "artifact_repository-role" {
   project = var.project_id
   role = "roles/artifactregistry.reader"
   member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
 }
+
+// needed to make query to BigQuery
 resource "google_project_iam_member" "workload_identity-role" {
   project = var.project_id
   role = "roles/bigquery.jobUser" # documentation: https://cloud.google.com/bigquery/docs/access-control
   member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
-  # member = "serviceAccount:${var.project_id}.svc.id.goog[workload-identity-test/workload-identity-user]"
-}
-resource "google_project_iam_member" "foobar-role" {
-  project = var.project_id
-  role = "roles/artifactregistry.createOnPushWriter"
-  member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
 }
 
-
-# gcloud iam service-accounts 
-    #  add-iam-policy-binding workload-identity-tutorial@winter-field-401115.iam.gserviceaccount.com \
-    # --role roles/iam.workloadIdentityUser \
-    # --member "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
 resource "google_project_iam_binding" "project_sa_binding" {
   project = var.project_id
   role    = "roles/iam.workloadIdentityUser"
