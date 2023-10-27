@@ -79,7 +79,13 @@
         terraform init
         terraform apply
 
-2. Build and push docker image(s)
+2. Build and push docker image(s) 
+
+        cd api/
+        docker buildx build \
+          --platform linux/amd64 \
+          -t {REGION}-docker.pkg.dev/{PROJECT_ID}/{ARTIFACT_REPOSITORY_ID}/{NAME}:{VERSION} .
+        docker push {NAME}:{VERSION}
 
 3.  Run k8s service account, cluster and service
 
@@ -88,22 +94,23 @@
         # connect to the gcp cluster using project id and region
         gcloud container clusters get-credentials {CLUSTER_NAME} --region {region} --project {PROJECT_ID}
         # or alternative use zone
-        gcloud container clusters get-credentials {CLUSTER_NAME} --zone {zone} --project {PROJECT_ID}
+        # gcloud container clusters get-credentials {CLUSTER_NAME} --zone {zone} --project {PROJECT_ID}
 
         kubectl apply -f k8s-service-account.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
         ```
 
-4.  Bind workload identity to allow pods in k8s cluster to connect to BigQuery (source: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to)
+4.  Bind **workload identity** to allow pods in k8s cluster to connect to BigQuery (source: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to)
 
+    bind to project level
     ```
         gcloud projects add-iam-policy-binding {PROJECT_ID} \
     --member "serviceAccount:{IAM_SERVICE_ACCOUNT}@{PROJECT_ID}.iam.gserviceaccount.com" \
     --role "roles/iam.workloadIdentityUser"
     ```
 
-    then
+    then bind the iam service account
 
     ```
     gcloud iam service-accounts add-iam-policy-binding {IAM_SERVICE_ACCOUNT}@{PROJECT_ID}.iam.gserviceaccount.com \
