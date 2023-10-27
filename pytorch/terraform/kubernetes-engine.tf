@@ -34,7 +34,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     machine_type = "e2-medium"
     # Google recommends custom service accounts that have cloud-platform scope
     # and permissions granted via IAM Roles.
-    service_account = google_service_account.workload-identity-user-sa.email
+    service_account = google_service_account.iam_sa.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
@@ -54,32 +54,41 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
 }
 
-# the IAM service account
-resource "google_service_account" "workload-identity-user-sa" {
-  account_id   = "workload-identity-tutorial"
+# the IAM service account 
+resource "google_service_account" "iam_sa" {
+  account_id   = "iam-sa-${var.environment}"
   display_name = "Service Account For Workload Identity"
 }
 
 // needed to pull images from Artifact Registry
-resource "google_project_iam_member" "artifact_repository-role" {
+resource "google_project_iam_member" "artifactregistry_reader" {
   project = var.project_id
   role = "roles/artifactregistry.reader"
-  member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
+  member = "serviceAccount:${google_service_account.iam_sa.email}"
 }
 
-// needed to make query to BigQuery
-resource "google_project_iam_member" "workload_identity-role" {
+// needed for CRUD operations on BigQuery
+resource "google_project_iam_member" "bigquery_dataEditor" {
   project = var.project_id
-  role = "roles/bigquery.jobUser" # documentation: https://cloud.google.com/bigquery/docs/access-control
-  member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
+  role = "roles/bigquery.dataEditor" # documentation: https://cloud.google.com/bigquery/docs/access-control
+  member = "serviceAccount:${google_service_account.iam_sa.email}"
 }
 
-resource "google_project_iam_binding" "project_sa_binding" {
-  project = var.project_id
-  role    = "roles/iam.workloadIdentityUser"
+// might be better to run it in a script
+# resource "google_project_iam_binding" "project_sa_binding" {
+#   project = var.project_id
+#   role    = "roles/iam.workloadIdentityUser"
   
-  members = [
-    "serviceAccount:${google_service_account.workload-identity-user-sa.email}",
-    "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
-  ]
+#   members = [
+#     # serviceAccount:iam-sa-qa@winter-field-401115.iam.gserviceaccount.com
+#     "serviceAccount:${google_service_account.iam_sa.email}",
+#     # "serviceAccount:winter-field-401115.svc.id.goog[default/iam-sa-${var.environment}]"
+#   ]
+# }
+
+output "iam-sa-name" {
+  value = google_service_account.iam_sa.name
+}
+output "iam-sa-email" {
+  value = google_service_account.iam_sa.email
 }

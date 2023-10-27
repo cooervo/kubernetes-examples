@@ -4,7 +4,7 @@ from google.cloud import bigquery
 app = Flask(__name__)
 
 # Replace with your BigQuery project and dataset information
-project_id = 'winter-field-401115'
+project_id = 'winter-field-401115' # TODO replace with your project ID
 dataset_id = 'example_dataset'
 
 @app.route("/")
