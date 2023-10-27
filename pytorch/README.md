@@ -36,11 +36,11 @@
     - [x] deploy flask in cluster
     - [ ] Helm how does it fit?
 
-- [ ] Big Query
+- [x] Big Query
     - [x] provision via terraform
     - [x] add a sample data set, user table and insert sample user
     - [x] Add connection to BigQuery from flask/python locally
-    - [ ] Add connection to BigQuery from flask/python (k8s pod) app and return to user 
+    - [X] Add connection to BigQuery from flask/python (k8s pod) app and return to user 
 
 - [ ] Install Pytorch and use a model
     - [ ] test sentiment analysis model works locally
