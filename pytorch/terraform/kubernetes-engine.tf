@@ -67,10 +67,17 @@ resource "google_project_iam_member" "artifactregistry_reader" {
   member = "serviceAccount:${google_service_account.iam_sa.email}"
 }
 
-// needed for CRUD operations on BigQuery
+// Needed for CRUD operations on BigQuery
 resource "google_project_iam_member" "bigquery_dataEditor" {
   project = var.project_id
   role = "roles/bigquery.dataEditor" # documentation: https://cloud.google.com/bigquery/docs/access-control
+  member = "serviceAccount:${google_service_account.iam_sa.email}"
+}
+
+// Needed for running queries on BigQuery
+resource "google_project_iam_member" "bigquery_jobUser" {
+  project = var.project_id
+  role = "roles/bigquery.jobUser" # documentation: https://cloud.google.com/bigquery/docs/access-control
   member = "serviceAccount:${google_service_account.iam_sa.email}"
 }
 
