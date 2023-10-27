@@ -20,5 +20,5 @@ spec:
         iam.gke.io/gke-metadata-server-enabled: "true"
       containers:
         - name: pytorch-container
-          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.6 # UPDATE w/ your image
+          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.7 # UPDATE w/ your image
       restartPolicy: Always
