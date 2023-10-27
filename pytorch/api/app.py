@@ -14,12 +14,17 @@ def hello_world():
 @app.route("/users")
 def get_users():
     try:
-        # client = bigquery.Client.from_service_account_json('./bigquery-sa-keys.json')
+        print(1)
         client = bigquery.Client(project=project_id)
+        print(2)
         query = f'SELECT * FROM `{project_id}.{dataset_id}.User`'
+        print(3)
         query_job = client.query(query)
+        print(4)
         results = query_job.result()
+        print(5)
         users = [dict(row) for row in results]
+        print(6)
         return jsonify(users)
 
     except Exception as e:

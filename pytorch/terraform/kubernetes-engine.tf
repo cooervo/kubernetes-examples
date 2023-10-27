@@ -53,10 +53,13 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     ]
   }
 }
+
+# the IAM service account
 resource "google_service_account" "workload-identity-user-sa" {
   account_id   = "workload-identity-tutorial"
   display_name = "Service Account For Workload Identity"
 }
+
 resource "google_project_iam_member" "artifact_repository-role" {
   project = var.project_id
   role = "roles/artifactregistry.reader"
@@ -72,4 +75,19 @@ resource "google_project_iam_member" "foobar-role" {
   project = var.project_id
   role = "roles/artifactregistry.createOnPushWriter"
   member = "serviceAccount:${google_service_account.workload-identity-user-sa.email}"
+}
+
+
+# gcloud iam service-accounts 
+    #  add-iam-policy-binding workload-identity-tutorial@winter-field-401115.iam.gserviceaccount.com \
+    # --role roles/iam.workloadIdentityUser \
+    # --member "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
+resource "google_project_iam_binding" "project_sa_binding" {
+  project = var.project_id
+  role    = "roles/iam.workloadIdentityUser"
+  
+  members = [
+    "serviceAccount:${google_service_account.workload-identity-user-sa.email}",
+    "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
+  ]
 }
