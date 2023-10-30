@@ -54,14 +54,16 @@
   - [ ] test sentiment analysis model works locally
   - [ ] test sentiment analysis model works in k8s cluster
 
-- [ ] Compute engine disk for persistency
+- [ ] Add another type of Pods
 
-  - [ ] provision via k8s with StorageClass
-  - [ ] mount disk to GKE cluster
+  - [ ] allow access from python pods to new pods 
+  - [ ] disallow public access to new pods
 
 - [ ] **ArgoCD** for Cluster Deployment ?
 
 - [ ] **Cloud Build** for CI/CD ?
+
+- [ ] Add Promtheus https://cloud.google.com/stackdriver/docs/solutions/gke
 
 - [ ] Redis (for cache or auth if needed)
 
@@ -70,6 +72,8 @@
   - [ ] CRUD in python
 
 - [ ] Train a model in pytorch simple Q/A of fictional character
+- [ ] Use vars in k8s config files instead of hardcoded values such as project id
+
 
 ## Deployment notes:
 
@@ -89,26 +93,30 @@
 
 3.  Run k8s service account, cluster and service
 
-        ```
         cd kubernetes/
+
         # connect to the gcp cluster using project id and region
         gcloud container clusters get-credentials {CLUSTER_NAME} --region {region} --project {PROJECT_ID}
-        # or alternative use zone
+        
+        # or as alternative use a zone
         # gcloud container clusters get-credentials {CLUSTER_NAME} --zone {zone} --project {PROJECT_ID}
 
         kubectl apply -f k8s-service-account.yaml
-        kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
-        ```
 
 4.  Bind **workload identity** to allow pods in k8s cluster to connect to BigQuery (source: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to)
 
     bind to project level
+       
     ```
         gcloud projects add-iam-policy-binding {PROJECT_ID} \
     --member "serviceAccount:{IAM_SERVICE_ACCOUNT}@{PROJECT_ID}.iam.gserviceaccount.com" \
     --role "roles/iam.workloadIdentityUser"
     ```
+
+    gcloud projects add-iam-policy-binding winter-field-401115 \
+    --member "serviceAccount:iam-sa-qa@winter-field-401115.iam.gserviceaccount.com" \
+    --role "roles/iam.workloadIdentityUser"
 
     then bind the iam service account
 
@@ -117,3 +125,11 @@
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:{PROJECT_ID}.svc.id.goog[{KUBERNETES_NAMESPACE}/{K8S_SERVICE_ACCOUNT}]"
     ```
+
+    gcloud iam service-accounts add-iam-policy-binding iam-sa-qa@winter-field-401115.iam.gserviceaccount.com \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
+
+5. Now we can create the deployment:
+
+        kubectl create -f deployment.yaml
