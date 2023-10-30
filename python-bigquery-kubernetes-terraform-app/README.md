@@ -114,10 +114,6 @@
     --role "roles/iam.workloadIdentityUser"
     ```
 
-    gcloud projects add-iam-policy-binding winter-field-401115 \
-    --member "serviceAccount:iam-sa-qa@winter-field-401115.iam.gserviceaccount.com" \
-    --role "roles/iam.workloadIdentityUser"
-
     then bind the iam service account
 
     ```
@@ -125,10 +121,6 @@
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:{PROJECT_ID}.svc.id.goog[{KUBERNETES_NAMESPACE}/{K8S_SERVICE_ACCOUNT}]"
     ```
-
-    gcloud iam service-accounts add-iam-policy-binding iam-sa-qa@winter-field-401115.iam.gserviceaccount.com \
-    --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:winter-field-401115.svc.id.goog[default/k8s-service-account]"
 
 5. Now we can create the deployment:
 
