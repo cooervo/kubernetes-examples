@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    name: app-deployment
+    service.istio.io/canonical-name: my-service # needed otherwise it won't be recognized by Anthos Service Mesh
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-deployment
+  template:
+    metadata:
+      labels:
+        app: app-deployment
+    spec:
+      # serviceAccountName: k8s-service-account
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      containers:
+        - name: pytorch-container
+          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/pytorch:v1.7 # UPDATE w/ your image
+      restartPolicy: Always

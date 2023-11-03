@@ -80,22 +80,3 @@ resource "google_project_iam_member" "bigquery_jobUser" {
   role = "roles/bigquery.jobUser" # documentation: https://cloud.google.com/bigquery/docs/access-control
   member = "serviceAccount:${google_service_account.iam_sa.email}"
 }
-
-// might be better to run it in a script
-# resource "google_project_iam_binding" "project_sa_binding" {
-#   project = var.project_id
-#   role    = "roles/iam.workloadIdentityUser"
-  
-#   members = [
-#     # serviceAccount:iam-sa-qa@winter-field-401115.iam.gserviceaccount.com
-#     "serviceAccount:${google_service_account.iam_sa.email}",
-#     # "serviceAccount:winter-field-401115.svc.id.goog[default/iam-sa-${var.environment}]"
-#   ]
-# }
-
-output "iam-sa-name" {
-  value = google_service_account.iam_sa.name
-}
-output "iam-sa-email" {
-  value = google_service_account.iam_sa.email
-}

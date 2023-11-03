@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  labels:
+    service: app-service
+spec:
+  selector:
+    app: app-deployment
+  type: LoadBalancer
+  ports:
+    - port: 5001
