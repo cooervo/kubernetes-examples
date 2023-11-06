@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-api
+  labels:
+    service: backend-api
+spec:
+  selector:
+    app: backend-api
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: http

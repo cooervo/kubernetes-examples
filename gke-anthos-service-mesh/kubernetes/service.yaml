@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-service
+  name: app-load-balancer
   labels:
-    service: app-service
+    service: app-load-balancer
 spec:
   selector:
-    app: app-deployment
+    app: frontend-app
   type: LoadBalancer
   ports:
     - port: 5001
+      name: http # needed due to Anthos Service Mesh: https://cloud.google.com/service-mesh/docs/naming-service-ports

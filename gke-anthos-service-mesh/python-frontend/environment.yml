@@ -1,0 +1,10 @@
+name: env-app
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11.0
+  - flask=3.0.*
+  - google-cloud-bigquery=3.10.0
+prefix: /Users/mateo/miniconda3/envs/env-app
