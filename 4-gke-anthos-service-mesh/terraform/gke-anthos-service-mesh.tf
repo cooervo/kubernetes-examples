@@ -12,14 +12,15 @@ module "gke" {
   region                  = var.region
   zones                   = var.zones
   release_channel         = "REGULAR"
-  network                 = "default"
-  subnetwork              = "default"
+  network                 = network.vpc.id
+  subnetwork              = network.subnet.id
   ip_range_pods           = ""
   ip_range_services       = ""
   network_policy          = false
 
-  # mesh_id label is required for Anthos Service Mesh
+  # mesh_id label is required for Anthos Service Mesh it must be proj-{PROJECT_NUMBER}
   cluster_resource_labels = { "mesh_id" : "proj-${data.google_project.project.number}" }
+
   identity_namespace      = "${var.project_id}.svc.id.goog"
   deletion_protection     = false
   node_pools = [
@@ -40,7 +41,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
 }
 
-module "asm" {
+module "anthos-service-mesh" {
   source            = "terraform-google-modules/kubernetes-engine/google//modules/asm"
   project_id                = var.project_id
   cluster_name              = module.gke.name
@@ -49,10 +50,6 @@ module "asm" {
   enable_cni                = true
   enable_fleet_registration = true
   enable_mesh_feature       = true
-}
 
-# output module.gke.location
-output "gkelocation" {
-  value = module.gke.location
- 
+  depends_on = [ module.gke ]
 }

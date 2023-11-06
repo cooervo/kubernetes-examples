@@ -13,7 +13,6 @@ provider "google" {
 }
 
 
-
 # the IAM service account 
 resource "google_service_account" "iam_sa" {
   account_id   = "iam-sa-${var.environment}"
