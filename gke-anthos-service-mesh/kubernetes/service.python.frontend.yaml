@@ -6,8 +6,9 @@ metadata:
     service: backend-api
 spec:
   selector:
+    # serving the backend-api deployment
     app: backend-api
-  type: ClusterIP
+  type: ClusterIP # ClusterIP is only accessible within the cluster
   ports:
     - port: 3000
       targetPort: 3000

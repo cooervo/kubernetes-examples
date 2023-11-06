@@ -1,11 +1,5 @@
 data "google_client_config" "default" {}
 
-provider "kubernetes" {
-  host                   = "https://${module.gke.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
-}
-
 data "google_project" "project" {
   project_id = var.project_id
 }
@@ -23,6 +17,8 @@ module "gke" {
   ip_range_pods           = ""
   ip_range_services       = ""
   network_policy          = false
+
+  # mesh_id label is required for Anthos Service Mesh
   cluster_resource_labels = { "mesh_id" : "proj-${data.google_project.project.number}" }
   identity_namespace      = "${var.project_id}.svc.id.goog"
   deletion_protection     = false
@@ -38,6 +34,12 @@ module "gke" {
   ]
 }
 
+provider "kubernetes" {
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+}
+
 module "asm" {
   source            = "terraform-google-modules/kubernetes-engine/google//modules/asm"
   project_id                = var.project_id
@@ -47,4 +49,10 @@ module "asm" {
   enable_cni                = true
   enable_fleet_registration = true
   enable_mesh_feature       = true
+}
+
+# output module.gke.location
+output "gkelocation" {
+  value = module.gke.location
+ 
 }
