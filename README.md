@@ -1,22 +1,9 @@
-## Python in GKE
-
-1. run server locally
-2. check it works
-3. repeat steps 3-5 as above but for python
-
-## LLM in GKE
-
-1. run server locally
-2. check it works
-3. repeat steps 3-5 as above but for LLM
+Examples of using kubernetes, GKE, Anthos service mesh, node, python among other things.
 
 ## To dos:
 
-- provision Artifact Repository via terraform
-- provision Compute engine disk via terraform if needed for PersistentVolumes
-- provision GKE cluster via terraform
-- Hello world with helm
-- 2 tier app with helm
+- Passing project id as var to k8s yml files
+- kustomize for multienvironments
 - connect via authorized networks only
 - How to manage secrets
 - ArgoCD
