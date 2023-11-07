@@ -4,12 +4,12 @@ variable "project_id" {
 }
 
 variable "region" {
-  default     = "europe-west6"
+  default     = "europe-west4"
   description = "Replace with your region"
 }
 
 variable "zones" {
-  default     = ["europe-west6-a", "europe-west6-b", "europe-west6-c"]
+  default     = ["europe-west4-a", "europe-west4-b", "europe-west4-c"]
   description = "Replace with your zones array"
 }
 

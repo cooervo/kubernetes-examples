@@ -1,4 +1,8 @@
 terraform {
+   backend "gcs" {
+    bucket = "bucket-terraform-remote-state" # TODO change to your GCP state bucket name
+    prefix = "terraform/state"
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -7,13 +11,16 @@ terraform {
   }
 }
 
+
 provider "google" {
   project     = var.project_id
   region      = var.region
 }
 
 
-# the IAM service account 
+# the IAM service account that will be used by:
+# - autopilot: module.gke.service_account
+# - non autopilot: module.gke.node_pools[].service_account
 resource "google_service_account" "iam_sa" {
   account_id   = "iam-sa-${var.environment}"
   display_name = "Service Account For Workload Identity"

@@ -5,6 +5,7 @@ metadata:
   labels:
     app: backend-api #app label needed for service mesh discovery in Anthos Service Mesh
     name: backend-api
+    service.istio.io/canonical-name: backend-api
   namespace: default
 spec:
   replicas: 1
@@ -20,5 +21,5 @@ spec:
         iam.gke.io/gke-metadata-server-enabled: "true"
       containers:
         - name: node-container
-          image: europe-west6-docker.pkg.dev/winter-field-401115/artifact-repository-qa/node:v1.2 # UPDATE w/ your image
+          image: europe-west4-docker.pkg.dev/winter-field-401115/artifact-repository-qa/node:v1 # UPDATE w/ your image
       restartPolicy: Always

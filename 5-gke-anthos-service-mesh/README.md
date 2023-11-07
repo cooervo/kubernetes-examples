@@ -35,15 +35,6 @@
 
   - [x] provision cluster via terraform (docu: https://developer.hashicorp.com/terraform/tutorials/kubernetes/gke)
   - [x] deploy flask in cluster
-  - [ ] Helm how does it fit?
-
-- [x] Big Query
-
-  - [x] provision via terraform
-  - [x] add a sample data set, user table and insert sample user
-  - [x] Add connection to BigQuery from flask/python locally
-
-- [x] Add **Workload identity** to allow k8s pods running flask to connect to BigQuery (tutorial:https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to )
 
 
 ## Deployment notes:
@@ -52,7 +43,7 @@
 
         cd terraform/
         terraform init
-        terraform apply
+        terraform apply // IMPORTANT: might need to comment out anthos mesh service code block since it needs gke cluster to be up and running, somehow depends_on doesn't work
 
 2. Build and push docker image(s) 
 
@@ -60,7 +51,7 @@
         docker buildx build \
           --platform linux/amd64 \
           -t {REGION}-docker.pkg.dev/{PROJECT_ID}/{ARTIFACT_REPOSITORY_ID}/{NAME}:{VERSION} .
- 
+
   - If pushing to GCP Artifact Registry:
   
         gcloud auth login # Log into gcloud:
@@ -69,37 +60,20 @@
   - Push to GCP Artifact Registry or docker hub:
         docker push {NAME}:{VERSION}
 
-3.  Run k8s service account, cluster and service
+3. Run istioctl analyze to check if anything is missing (might need to install istioctl)
 
-        cd kubernetes/
+        `istioctl analyze`
 
-        # connect to the gcp cluster using project id and region
+        # Example output:
+
+        The namespace is not enabled for Istio injection. Run 'kubectl label namespace {NAMESPACE} istio-injection=enabled' to enable it, or 'kubectl label namespace {NAMESPACE} istio-injection=disabled' to explicitly mark it as not needing injection.
+
+        if `istioctl analyze` returns no errors (example: `✔ No validation issues found when analyzing namespace: default`) then proceed to next step.
+
+3.  Run k8s deployments and services:
+
+        # connect to the gcp cluster using project id and region (this is in Gke cluster console)
         gcloud container clusters get-credentials {CLUSTER_NAME} --region {region} --project {PROJECT_ID}
         
-        # or as alternative use a zone
-        # gcloud container clusters get-credentials {CLUSTER_NAME} --zone {zone} --project {PROJECT_ID}
-
-        kubectl apply -f k8s-service-account.yaml
-        kubectl apply -f service.yaml
-
-4.  Bind **workload identity** to allow pods in k8s cluster to connect to BigQuery (source: https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to)
-
-    bind to project level
-       
-    ```
-        gcloud projects add-iam-policy-binding {PROJECT_ID} \
-    --member "serviceAccount:{IAM_SERVICE_ACCOUNT}@{PROJECT_ID}.iam.gserviceaccount.com" \
-    --role "roles/iam.workloadIdentityUser"
-    ```
-
-    then bind the iam service account
-
-    ```
-    gcloud iam service-accounts add-iam-policy-binding {IAM_SERVICE_ACCOUNT}@{PROJECT_ID}.iam.gserviceaccount.com \
-    --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:{PROJECT_ID}.svc.id.goog[{KUBERNETES_NAMESPACE}/{K8S_SERVICE_ACCOUNT}]"
-    ```
-
-5. Now we can create the deployment:
-
-        kubectl create -f deployment.yaml
+        # at dir `4-gke-anthos-service-mesh` run:
+        kubectl apply -f kubernetes/ # or run each file independently with `kubectl apply -f {file-name}`

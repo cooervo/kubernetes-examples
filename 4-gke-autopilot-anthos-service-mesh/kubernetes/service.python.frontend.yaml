@@ -4,6 +4,8 @@ metadata:
   name: backend-api
   labels:
     service: backend-api
+    name: backend-api
+    service.istio.io/canonical-name: backend-api
 spec:
   selector:
     # serving the backend-api deployment

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-load-balancer
+  labels:
+    service: app-load-balancer
+    name: app-load-balancer
+    service.istio.io/canonical-name: app-load-balancer
+spec:
+  selector:
+    # serving the frontend-app deployment
+    app: frontend-app
+  type: LoadBalancer # load balancers are publicly accesible
+  ports:
+    - port: 5001
+      name: http # needed due to Anthos Service Mesh: https://cloud.google.com/service-mesh/docs/naming-service-ports

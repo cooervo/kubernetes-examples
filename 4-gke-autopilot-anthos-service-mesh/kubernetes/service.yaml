@@ -4,6 +4,8 @@ metadata:
   name: app-load-balancer
   labels:
     service: app-load-balancer
+    name: app-load-balancer
+    service.istio.io/canonical-name: app-load-balancer
 spec:
   selector:
     # serving the frontend-app deployment

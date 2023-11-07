@@ -7,13 +7,13 @@ data "google_project" "project" {
 module "gke" {
   source            = "terraform-google-modules/kubernetes-engine/google//"
   project_id              = var.project_id
-  name                    = "test-prefix-cluster"
-  regional                = false
+  name                    = "gke-cluster-${var.environment}"
+  regional                = true
   region                  = var.region
   zones                   = var.zones
   release_channel         = "REGULAR"
-  network                 = network.vpc.id
-  subnetwork              = network.subnet.id
+  network                 = google_compute_network.vpc.name
+  subnetwork              = google_compute_subnetwork.subnet.name
   ip_range_pods           = ""
   ip_range_services       = ""
   network_policy          = false
@@ -26,13 +26,15 @@ module "gke" {
   node_pools = [
     {
         service_account = google_service_account.iam_sa.email
-      name         = "asm-node-pool"
+      name         = "asm-node-pool" // TODO change to your node pool name
       autoscaling  = false
       auto_upgrade = true
       node_count   = 2
       machine_type = "e2-standard-4"
     },
   ]
+
+  depends_on = [ google_compute_network.vpc, google_compute_subnetwork.subnet ]
 }
 
 provider "kubernetes" {
@@ -49,7 +51,7 @@ module "anthos-service-mesh" {
   multicluster_mode         = "connected"
   enable_cni                = true
   enable_fleet_registration = true
-  enable_mesh_feature       = true
+  # enable_mesh_feature       = true
 
   depends_on = [ module.gke ]
 }
