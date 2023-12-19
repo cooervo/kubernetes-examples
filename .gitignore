@@ -101,3 +101,8 @@ terraform.rc
 # Ignore Mac OS
 # ==============================
 .DS_Store 
+
+
+*creds*
+*credentials*
+*keys*
