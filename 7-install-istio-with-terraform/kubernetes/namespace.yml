@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: production
+  name: prod
   labels:
-    monitoring: prometheus
+    # monitoring: prometheus
     istio-injection: enabled

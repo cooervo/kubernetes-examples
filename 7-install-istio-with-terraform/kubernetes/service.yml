@@ -1,17 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-app-service
+  name: my-app
   labels:
-    name: node-app-service
-    app: node-app
-  # namespace: development
+    app: my-app
+  # namespace: prod
 spec:
   type: ClusterIP
   selector:
-    name: node-app-pod
-    app: node-app
+    app: my-app
   ports:
     - name: http
       port: 80 # this Service port (to receive connections externally)
-      targetPort: 3300 # the Pod port (to send connections to)
+      targetPort: 80 # the Pod port (to send connections to)

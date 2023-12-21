@@ -1,29 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-app-deployment
+  name: my-app
   labels:
-    name: node-app-deployment
-    app: node-app
-  # namespace: development
+    app: my-app
+  # namespace: prod
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      name: node-app-pod
-      app: node-app
+      app: my-app
   template:
     metadata:
-      name: node-app-pod
       labels:
-        name: node-app-pod
-        app: node-app
+        app: my-app
     spec:
       containers:
         - name: node-app-api-image
-          image: cooervo/kube-node:amdv1.0 # add my personal docker hub but can be stored in GCP Artifact Registry 
+          image: cooervo/server-with-args
+          args: ["Hello from NODE app"]
           ports:
-            - containerPort: 5500
+            - containerPort: 80
           #  resources:
           #    limits:
           #      cpu: "1"
