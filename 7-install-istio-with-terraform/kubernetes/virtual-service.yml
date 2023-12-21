@@ -1,19 +1,18 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: second-app
-  namespace: production
+  name: my-app
+  # namespace: production
 spec:
   hosts:
     - app.testmosaic.com
-    - second-app
+    - my-app
   gateways:
-    - api
+    - gateway
   http:
     - match:
         - uri:
             prefix: /
       route:
         - destination:
-            host: second-app
-            subset: v1
+            host: my-app
