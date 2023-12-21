@@ -1,20 +1,14 @@
-Networking flow:
+# Networking flow:
 
-Istio ingress-gateway (installed via chart in terraform) -> istio-gateway -> virtual service -> destination rule -> service -> pod
+**`Istio ingress-gateway` -> `istio-gateway` -> `virtual service(s)` -> `destination rule(s)` -> `service` -> `deployment`**
 
+### Instalation steps
 
-
-# Get the node port for the istio ingress gateway:
-#         kubectl get svc {SERVICE_NAME} -n {NAMESPACE} -o jsonpath='{.spec.ports[?(@.name=="{PORT_NAME_TO_MATCH}")].nodePort
-
-#         kubectl get svc ingressgateway -n istio-ingress -o jsonpath='{.spec.ports[?(@.name=="http-web")].nodePort}'
-
-# create firewall rule using the port of the ingressgateway
-#  gcloud compute firewall-rules create test-allow-gateway-http --allow tcp:30673 --network=party-vpc
-
-# Get list of nodes and their external IP address:
-    #   kubectl get nodes -o wide
-
-# test with curl
-#curl -v -H "Host: {HOST_NAME}" \  
-#      http://{NODE_EXTERNAL_IP}:{INGRESS_GATEWAY_NODE_PORT}
+1. run terraform at `terraform/` folder
+2. install istio from script `/istio/install-istio-in-cluster.sh`
+3. install resource in `kubernetes/` folder. `kubectl apply -f kubernetes/`
+4. in GKE check service copy the external IP of the `istio-ingressgateway` service installed in past with command (`helm install ingressgateway istio/charts/gateway -n istio-ingress`)
+5. go to your domain name manager
+6. set `A` record for `app.testmosaic.com` pointing to the external IP of the `ingressgateway`
+7. set `A` record for `test.testmosaic.com` pointing to the external IP of the `ingressgateway`
+8. open browser and go to `app.testmosaic.com` and `test.testmosaic.com` app should work
