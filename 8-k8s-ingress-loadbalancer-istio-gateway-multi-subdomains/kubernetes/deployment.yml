@@ -18,7 +18,7 @@ spec:
       containers:
         - name: node-app-api-image
           image: cooervo/server-with-args
-          args: ["Hello from my-app server"]
+          args: ["Hello from MY-APP server"]
           ports:
             - containerPort: 80
           #  resources:

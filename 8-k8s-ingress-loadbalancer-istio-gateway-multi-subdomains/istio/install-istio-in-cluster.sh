@@ -23,9 +23,9 @@ helm install istiod charts/istiod -n istio-system --wait
 #helm install istiod istio/istiod -n istio-system --wait
 
 
-echo -e "4) Install istio/gateway which allows us to use istio's ingress gateway to handle external traffic entering the Istio service mesh \n"
+echo -e "4) Install istio/gateway **type NodePort** which allows us to use istio's ingress gateway to handle external traffic entering the Istio service mesh \n"
 kubectl create namespace istio-ingress
-helm install ingressgateway charts/gateway -n istio-ingress
+helm install ingressgateway istio/charts/gateway -f istio/chart-values/gateway-values.yml  -n istio-ingress 
 
 echo -e "5) Install the gateway  \n"
 kubectl apply -f path/to/my/gateway.yml
