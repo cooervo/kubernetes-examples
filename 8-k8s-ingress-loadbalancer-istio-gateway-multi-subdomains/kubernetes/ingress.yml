@@ -6,12 +6,28 @@ kind: Ingress
 metadata:
   name: my-ingress
   # annotations:
-    # kubernetes.io/ingress.global-static-ip-name: "ingress-test-ip"
-    # networking.gke.io/managed-certificates: "my-cert"
-    # networking.gke.io/v1beta1.FrontendConfig: "ingress-test-fe-config"
+  # kubernetes.io/ingress.global-static-ip-name: "ingress-test-ip"
+  # networking.gke.io/managed-certificates: "my-cert"
+  # networking.gke.io/v1beta1.FrontendConfig: "ingress-test-fe-config"
 spec:
-  defaultBackend:
-    service:
-      name: my-app
-      port:
-        number: 80
+  rules:
+    - host: app.testmosaic.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app
+                port:
+                  number: 80
+    - host: test.testmosaic.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-app
+                port:
+                  number: 80
