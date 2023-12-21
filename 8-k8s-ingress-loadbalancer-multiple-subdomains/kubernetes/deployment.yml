@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+  # namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: node-app-api-image
+          image: cooervo/server-with-args
+          args: ["Hello from my-app server"]
+          ports:
+            - containerPort: 80
+          #  resources:
+          #    limits:
+          #      cpu: "1"
+          #      memory: "512Mi"
+          #    requests:
+          #      cpu: "500m"
+          #      memory: "256Mi"
