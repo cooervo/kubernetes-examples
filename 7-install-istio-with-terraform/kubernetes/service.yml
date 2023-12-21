@@ -5,13 +5,13 @@ metadata:
   labels:
     name: node-app-service
     app: node-app
-  namespace: development
+  # namespace: development
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     name: node-app-pod
     app: node-app
   ports:
     - name: http
-      port: 5500 # this Service port (to receive connections externally)
+      port: 80 # this Service port (to receive connections externally)
       targetPort: 3300 # the Pod port (to send connections to)

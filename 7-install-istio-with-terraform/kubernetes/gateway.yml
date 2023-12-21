@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: api
+  namespace: production
+spec:
+  selector:
+    istio: gateway # TODO might need to rename
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - app.testmosaic.com
+    # - port:
+    #     number: 443
+    #     name: https
+    #     protocol: HTTPS
+    #   hosts:
+    #     - app.testmosaic.com
+    #   tls:
+    #     credentialName: api-devopsbyexample-com-crt
+    #     mode: SIMPLE
