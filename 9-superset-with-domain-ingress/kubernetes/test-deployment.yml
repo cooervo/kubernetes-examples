@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  labels:
+    app: test-app
+  # namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+        - name: test-app-container
+          image: cooervo/server-with-args
+          args: ["Hello from TEST-APP server"]
+          ports:
+            - containerPort: 80
+          #  resources:
+          #    limits:
+          #      cpu: "1"
+          #      memory: "512Mi"
+          #    requests:
+          #      cpu: "500m"
+          #      memory: "256Mi"

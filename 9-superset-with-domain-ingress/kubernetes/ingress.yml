@@ -1,0 +1,68 @@
+# apiVersion: networking.gke.io/v1beta1
+# kind: FrontendConfig
+# metadata:
+#  name: ingress-frontend-config
+# spec:
+# # Redirect HTTP to HTTPS
+#  redirectToHttps:
+#    enabled: true
+#    responseCodeName: PERMANENT_REDIRECT
+# ---
+
+# # Takes a few minutes to provision the certificate
+# # GCP says about 60 minutes, but it's usually faster: 
+# # https://medium.com/google-cloud/exposing-gke-applications-leveraging-the-built-in-ingress-e87b78e23e90
+# apiVersion: networking.gke.io/v1
+# kind: ManagedCertificate
+# metadata:
+#   name: my-managed-certificates
+# spec:
+#   domains:
+#     - app.testmosaic.com
+#     - test.testmosaic.com
+#     - superset.testmosaic.com
+
+---
+# Will create Ingress in GKE Servicess > Ingress tab
+# Will create static external/public IP in GKE if non specified in annotations
+# Will create an external Application Load Balancer in GKE (give it a few mins)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  # annotations:
+    # networking.gke.io/managed-certificates: my-managed-certificates
+    # networking.gke.io/v1beta1.FrontendConfig: ingress-frontend-config
+    # kubernetes.io/ingress.global-static-ip-name: "ingress-test-ip"
+spec:
+  rules:
+    - host: app.testmosaic.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app
+                port:
+                  number: 80
+    - host: test.testmosaic.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-app
+                port:
+                  number: 80
+    - host: superset.testmosaic.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: superset
+                port:
+                  number: 8088 # Port number on the service to which the traffic is routed to
