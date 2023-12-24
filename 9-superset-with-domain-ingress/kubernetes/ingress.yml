@@ -29,6 +29,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  namespace: superset
   name: my-ingress
   # annotations:
     # networking.gke.io/managed-certificates: my-managed-certificates
@@ -36,33 +37,13 @@ metadata:
     # kubernetes.io/ingress.global-static-ip-name: "ingress-test-ip"
 spec:
   rules:
-    - host: app.testmosaic.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: my-app
-                port:
-                  number: 80
-    - host: test.testmosaic.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: test-app
-                port:
-                  number: 80
     - host: superset.testmosaic.com
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /*
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: superset
                 port:
-                  number: 8088 # Port number on the service to which the traffic is routed to
+                  name: http

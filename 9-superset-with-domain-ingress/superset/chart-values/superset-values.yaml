@@ -201,7 +201,7 @@ initImage:
   pullPolicy: IfNotPresent
 
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 80
   annotations:
     {}
@@ -209,7 +209,7 @@ service:
   loadBalancerIP: ~
   nodePort:
     # -- (int)
-    http: 30004 # The range of valid ports is 30000-32767
+    http: 30777 # The range of valid ports is 30000-32767
 
 ingress:
   enabled: false
