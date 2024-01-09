@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-deployment
+  namespace: debug
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping
+  template:
+    metadata:
+      labels:
+        app: ping
+    spec:
+      containers:
+        - name: ping-container
+          image: alpine:latest
+          command: ["/bin/ping", "google.com"]
+          securityContext:
+            capabilities:
+              add:
+                - NET_RAW
+              drop:
+                - ALL
