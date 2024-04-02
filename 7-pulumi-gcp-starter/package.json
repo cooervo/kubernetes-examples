@@ -1,0 +1,11 @@
+{
+  "name": "7-pulumi-gcp-starter",
+  "devDependencies": {
+    "@types/node": "^18"
+  },
+  "dependencies": {
+    "typescript": "^4.0.0",
+    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/gcp": "^7.0.0"
+  }
+}
