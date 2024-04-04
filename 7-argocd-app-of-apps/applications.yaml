@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 7-argocd-app-of-apps/apps/status-app
+    path: 7-argocd-app-of-apps/
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
