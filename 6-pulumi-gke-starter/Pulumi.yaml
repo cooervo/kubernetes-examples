@@ -1,0 +1,7 @@
+name: cooervo-labs
+runtime: nodejs
+description: "cooervo labs app(s)"
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: ""

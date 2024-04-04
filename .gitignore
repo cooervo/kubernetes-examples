@@ -107,4 +107,4 @@ terraform.rc
 *credentials*
 *keys*
 
-Pulumi.dev.yaml
+Pulumi.*.yaml

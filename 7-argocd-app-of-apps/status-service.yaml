@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: status-app
+  namespace: default
+  labels:
+    app: status-app
+spec:
+  type: ClusterIP
+  selector:
+    app: status-app
+  ports:
+    - name: http
+      port: 80 # this Service port (to receive connections externally)
+      targetPort: 80 # the Pod port (to send connections to)

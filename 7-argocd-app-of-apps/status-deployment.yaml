@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-app
+  namespace: default
+  labels:
+    app: status-app
+spec:
+  selector:
+    matchLabels:
+      app: status-app
+  template:
+    metadata:
+      labels:
+        app: status-app
+    spec:
+      containers:
+        - name: status-container
+          image: us-docker.pkg.dev/mosaic-prod-404617/prod-artifact-registry/nodejs-server-with-args-port-80
+          args: ["party status: OK 👍"]
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80

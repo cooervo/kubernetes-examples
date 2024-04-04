@@ -1,7 +1,0 @@
-name: 7-pulumi-gcp-starter
-runtime: nodejs
-description: A TypeScript program to deploy a Kubernetes cluster on Google Cloud
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: ""
