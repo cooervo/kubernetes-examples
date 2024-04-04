@@ -7,6 +7,7 @@
     -f chart-values/argo-cd.values.yaml \
     -n argocd --create-namespace
 5. kubectl port-forward svc/argocd-server -n argocd 8080:443
-6. visit http://localhost:8080 and login with the default password
+6. visit http://localhost:8080 and login with the default username & password
     username: `admin`
-    password: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+    get password from command: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+
