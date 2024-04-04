@@ -15,8 +15,8 @@ spec:
         app: status-app
     spec:
       containers:
-        - name: status-container
-          image: us-docker.pkg.dev/mosaic-prod-404617/prod-artifact-registry/nodejs-server-with-args-port-80
+        - name: nodejs-server-port-80
+          image: ccooervo/server-with-args
           args: ["party status: OK 👍"]
           ports:
             - containerPort: 80
