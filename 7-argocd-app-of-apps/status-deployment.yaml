@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: nodejs-server-port-80
-          image: ccooervo/server-with-args
-          args: ["party status: OK 👍"]
+          image: cooervo/server-with-args
+          args: ["status: OK 👍"]
           ports:
             - containerPort: 80
           livenessProbe:
