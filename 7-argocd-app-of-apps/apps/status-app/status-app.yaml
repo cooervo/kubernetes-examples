@@ -2,8 +2,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-app-of-apps
-  namespace: argocd
+  name: status-app
+  namespace: default
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 7-argocd-app-of-apps/apps/status-app
+    path: 7-argocd-app-of-apps/apps/status-app/templates
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

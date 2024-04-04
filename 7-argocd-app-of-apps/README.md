@@ -10,4 +10,7 @@
 6. visit http://localhost:8080 and login with the default username & password
     username: `admin`
     get password from command: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+7. cd 7-argocd-app-of-apps/
+8. kubectl apply -f applications.yaml # install the app of apps:
+7. visit https://localhost:8080/applications/argocd/my-app-of-apps
 
