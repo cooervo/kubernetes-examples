@@ -13,7 +13,6 @@ spec:
     path: 7-argocd-app-of-apps/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
-    # namespace: default
   syncPolicy:
     automated:
       prune: true
