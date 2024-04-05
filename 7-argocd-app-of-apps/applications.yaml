@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 7-argocd-app-of-apps/
+    path: 7-argocd-app-of-apps/apps/
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
@@ -19,8 +19,7 @@ spec:
       selfHeal: true
       allowEmpty: true
     syncOptions:
-      # - Validate=true
-      - CreateNamespace=false
+      - CreateNamespace=true
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       

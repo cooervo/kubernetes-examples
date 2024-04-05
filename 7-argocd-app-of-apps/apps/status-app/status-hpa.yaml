@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: status-app-auto-scaler
-  namespace: argocd
+  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
