@@ -11,6 +11,10 @@
     username: `admin`
     get password from command: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
 7. cd 7-argocd-app-of-apps/
-8. kubectl apply -f applications.yaml # install the app of apps:
-7. visit https://localhost:8080/applications/argocd/my-app-of-apps
+8. manually install the app of apps:
+    8.1. Go to argocd UI >  Applications > Create > Copy paste manifest yaml of the app of apps: `7-argocd-app-of-apps/applications.yaml`
+    8.2. kubectl apply -f applications.yaml 
+9. visit https://localhost:8080/applications/argocd/my-app-of-apps
+10. make sure you have pushed latest changes to the git repo
+11. ArgoCD should now be updated but you can sync just in case
 
