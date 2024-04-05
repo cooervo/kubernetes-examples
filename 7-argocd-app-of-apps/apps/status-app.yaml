@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: status-app
-  namespace: argocd
+  namespace: default
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -13,5 +13,6 @@ spec:
     path: 7-argocd-app-of-apps/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
+    # namespace: default
 
       
