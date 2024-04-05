@@ -13,5 +13,4 @@ spec:
     path: 7-argocd-app-of-apps/apps/example-app/
   destination:
     server: https://kubernetes.default.svc
-    namespace: example
       
