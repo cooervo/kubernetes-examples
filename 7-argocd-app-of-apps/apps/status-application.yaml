@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: status-app
+  name: status-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   finalizers:
     - resources-finalizer.argocd.argoproj.io
