@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 9-argocd-app-of-apps-kustomize/apps/
+    path: 009-argocd-app-of-apps-kustomize/apps/
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
