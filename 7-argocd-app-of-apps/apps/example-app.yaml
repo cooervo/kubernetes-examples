@@ -13,12 +13,3 @@ spec:
     path: 7-argocd-app-of-apps/apps/example-app/
   destination:
     server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
-      - PrunePropagationPolicy=foreground
-      - PruneLast=true

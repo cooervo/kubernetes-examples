@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: status-app
-  namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+  name: my-app-of-apps
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -10,6 +10,16 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 7-argocd-app-of-apps/apps/status-app/
+    path: 9-argocd-app-of-apps/apps/
   destination:
     server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      
