@@ -6,6 +6,7 @@ Kubernetes examples with Pulumi, ArgoCD, Helm, Kustomize, and Service Mesh.
 - How to manage secrets
 - ArgoCD
     - argocd + helm
+    - argoCD manual sync to very diff
     - argocd + kuztomize
     - argocd + AppSet
     - argocd and secrets

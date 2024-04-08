@@ -3,15 +3,17 @@ kind: Application
 metadata:
   name: cert-manager-application
   namespace: cert-manager
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
+    repoURL: https://charts.jetstack.io
     chart: cert-manager
     helm:
       parameters:
         - name: installCRDs
-          value: "true"
-    repoURL: https://charts.jetstack.io
+          value: "True"
     targetRevision: v1.14.4
   destination:
     namespace: cert-manager
