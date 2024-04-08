@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-app
+  labels:
+    env: prod
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      env: prod
+  template:
+    metadata:
+      labels:
+        env: prod
+  containers:
+    - name: nodejs-server-port-80
+      resources:
+            limits:
+              cpu: "1" 
+              memory: "1Gi" 
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
