@@ -14,9 +14,5 @@ spec:
     path: 8-argocd-app-of-apps-helm/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
-  # syncPolicy:
-  #   automated:
-  #     prune: true
-  #     selfHeal: true
-  #     allowEmpty: true
+
       
