@@ -24,10 +24,3 @@ spec:
           image: cooervo/kube-node:amdv1.0 # add my personal docker hub but can be stored in GCP Artifact Registry 
           ports:
             - containerPort: 5500
-          #  resources:
-          #    limits:
-          #      cpu: "1"
-          #      memory: "512Mi"
-          #    requests:
-          #      cpu: "500m"
-          #      memory: "256Mi"
