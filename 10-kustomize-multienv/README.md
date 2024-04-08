@@ -1,4 +1,4 @@
-* Buiild per env
+* Build (dry run) per env
 
 ```sh
 # for dev
@@ -12,8 +12,8 @@ kustomize build overlays/dev
 
 ```sh
 # for dev
-kusomtize build overlays/dev | kubectl apply -f -
+kustomize build overlays/dev | kubectl apply -f -
 
 # for prod
-kusomtize build overlays/prod | kubectl apply -f -
+kustomize build overlays/prod | kubectl apply -f -
 ```

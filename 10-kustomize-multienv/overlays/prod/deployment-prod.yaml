@@ -9,21 +9,22 @@ spec:
   selector:
     matchLabels:
       env: prod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
         env: prod
-  containers:
-    - name: nodejs-server-port-80
-      resources:
-            limits:
-              cpu: "1" 
-              memory: "1Gi" 
-            requests:
-              cpu: "500m"
-              memory: "512Mi"
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 1
+    spec:
+      containers:
+        - name: nodejs-server-port-80
+          resources:
+                limits:
+                  cpu: "1" 
+                  memory: "1Gi" 
+                requests:
+                  cpu: "500m"
+                  memory: "512Mi"
