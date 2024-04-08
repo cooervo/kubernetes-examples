@@ -13,7 +13,7 @@ spec:
     helm:
       parameters:
         - name: installCRDs
-          value: "True"
+          value: true
     targetRevision: v1.14.4
   destination:
     namespace: cert-manager
