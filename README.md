@@ -1,14 +1,13 @@
-Examples of using kubernetes, GKE, Anthos service mesh, node, python among other things.
+Kubernetes examples with Pulumi, ArgoCD, Helm, Kustomize, and Service Mesh.
 
 ## To dos:
 
 - kustomize for multienvironments
 - How to manage secrets
 - ArgoCD
-    - argocd + custom templates
-    - argocd + kuztomize
     - argocd + helm
+    - argocd + kuztomize
     - argocd + AppSet
+    - argocd and secrets
 
 - Add Promtheus https://cloud.google.com/stackdriver/docs/solutions/gke
-- Provision different type of pods in same cluster
