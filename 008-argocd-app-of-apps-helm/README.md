@@ -2,7 +2,7 @@
 
 1. helm repo add argo https://argoproj.github.io/argo-helm
 2. helm pull argo/argo-cd --untar 
-3. cd 7-argocd-app-of-apps/helm
+3. cd 008-argocd-app-of-apps/helm
 4. update  following file in argocd.values.yaml with desired namespaces:
   `config.params.application.namespaces: "default, cert-manager"`
 5. helm install argocd argo-cd/ \
