@@ -7,15 +7,16 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+  # Source using custom templates
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
     path: 8-argocd-app-of-apps-helm/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
+  #     allowEmpty: true
       
