@@ -11,7 +11,7 @@ spec:
   # equivalent for: helm install istio-base istio/base -n istio-system --set defaultRevision=default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: istio/base
+    chart: base
     helm:
       parameters:
         - name: defaultRevision

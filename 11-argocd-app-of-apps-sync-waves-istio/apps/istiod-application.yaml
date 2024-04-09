@@ -11,7 +11,7 @@ spec:
   # equivalent for: helm install istiod istio/istiod -n istio-system --wait
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: istio/istiod
+    chart: istiod
     targetRevision: 1.20.0
     helm:
       wait: true
