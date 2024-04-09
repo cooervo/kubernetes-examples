@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: istio/istiod
-    targetRevision: v1.20.0
+    targetRevision: 1.20.0
     helm:
       wait: true
   destination:

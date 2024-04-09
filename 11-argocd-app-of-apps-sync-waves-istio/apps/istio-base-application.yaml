@@ -16,7 +16,7 @@ spec:
       parameters:
         - name: defaultRevision
           value: "default"
-    targetRevision: v1.20.0
+    targetRevision: 1.20.0
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
