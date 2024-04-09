@@ -4,6 +4,16 @@ kind: Kustomization
 resources:
 - ../../base
 
+transformers:
+# use the builtin namespace transformer to set the namespace
+- |- 
+  apiVersion: builtin
+  kind: NamespaceTransformer
+  metadata:
+    # name: status-app
+    namespace: dev
+  unsetOnly: false
+
 patches:
 - path: deployment-dev.yaml
 # args needs special treatment
@@ -14,3 +24,4 @@ patches:
   target:
     kind: Deployment
 - path: service-dev.yaml
+

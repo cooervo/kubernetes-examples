@@ -12,4 +12,3 @@ spec:
     path: 09-argocd-app-of-apps-kustomize/apps/overlays/dev/
   destination:
     server: https://kubernetes.default.svc
-

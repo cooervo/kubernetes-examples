@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: status-app
-  namespace: default
+  # namespace: default
   labels:
     app: status-app
 spec:
