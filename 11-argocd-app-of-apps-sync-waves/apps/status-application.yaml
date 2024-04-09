@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: status-app
+  namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+spec:
+  project: default
+  # Source using custom templates
+  source:
+    repoURL: https://github.com/cooervo/kubernetes-examples.git
+    targetRevision: HEAD
+    path: 11-argocd-app-of-apps-sync-waves/apps/status-app/
+  destination:
+    server: https://kubernetes.default.svc
+
+      

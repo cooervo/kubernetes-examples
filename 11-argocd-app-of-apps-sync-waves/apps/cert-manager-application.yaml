@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiobase-application
+  namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+spec:
+  project: default
+  # Source using helm charts 
+  source:
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    helm:
+      parameters:
+        - name: installCRDs
+          value: "true"
+    targetRevision: v1.14.4
+  destination:
+    namespace: cert-manager
+    server: https://kubernetes.default.svc
