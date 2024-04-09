@@ -7,6 +7,8 @@ spec:
   project: default
   # Source using kustomize templates
   source:
+    kustomize:
+      namespace: dev
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
     path: 09-argocd-app-of-apps-kustomize/apps/overlays/dev/
