@@ -10,6 +10,6 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 007-argocd-app-of-apps/apps/example-app/
+    path: 07-argocd-app-of-apps/apps/example-app/
   destination:
     server: https://kubernetes.default.svc

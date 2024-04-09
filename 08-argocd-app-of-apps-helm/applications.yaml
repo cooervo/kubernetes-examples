@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 008-argocd-app-of-apps-helm/apps/
+    path: 08-argocd-app-of-apps-helm/apps/
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
