@@ -18,6 +18,8 @@ spec:
       prune: true
       selfHeal: true
       allowEmpty: true
+    retry:
+      limit: 2
     syncOptions:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground

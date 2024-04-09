@@ -1,21 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: status-application
+  name: dev-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+  # Source using kustomize templates
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 09-argocd-app-of-apps-kustomize/apps/status-app/
+    path: 09-argocd-app-of-apps-kustomize/apps/overlays/dev/
   destination:
     server: https://kubernetes.default.svc
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-      
+
