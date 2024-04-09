@@ -20,4 +20,6 @@ spec:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
       - PruneLast=true
+    retry:
+      limit: 2
       
