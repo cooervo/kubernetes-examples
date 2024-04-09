@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: status-app
   namespace: default
+  annotations:
+    # must be deployed after namespace
+    argocd.argoproj.io/sync-wave: "1"
   labels:
     app: status-app
 spec:
