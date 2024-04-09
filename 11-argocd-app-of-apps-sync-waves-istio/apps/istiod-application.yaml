@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiod-application
+  namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  # Source using istio/istiod helm chart
+  # equivalent for: helm install istiod istio/istiod -n istio-system --wait
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istio/istiod
+    targetRevision: v1.20.0
+    helm:
+      wait: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+#

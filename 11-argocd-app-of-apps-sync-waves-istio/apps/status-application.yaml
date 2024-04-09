@@ -4,14 +4,17 @@ metadata:
   name: status-app
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    # this has highest value therefore it will 
+    # run after all istio apps have been installed
+    # check status-app deployment has istio sidecar injected
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: default
   # Source using custom templates
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 11-argocd-app-of-apps-sync-waves/apps/status-app/
+    path: 11-argocd-app-of-apps-sync-waves-istio/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
 

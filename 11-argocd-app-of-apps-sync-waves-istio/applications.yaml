@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 11-argocd-app-of-apps-sync-waves/apps/
+    path: 11-argocd-app-of-apps-sync-waves-istio/apps/
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

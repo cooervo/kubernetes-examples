@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-base-application
+  name: istio-gateway-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
-  # Source using helm charts 
+  # Source using istio/base helm chart
+  # equivalent for: helm install istio-ingress istio/gateway -n istio-ingress --wait
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: istio/base
+    chart: istio/gateway
     helm:
-      parameters:
-        - name: defaultRevision
-          value: "default"
+      wait: true
     targetRevision: v1.20.0
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: istio-ingress
+

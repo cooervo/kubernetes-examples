@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-base-application
+  namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: default
+  # Source using istio/base helm chart
+  # equivalent for: helm install istio-base istio/base -n istio-system --set defaultRevision=default
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istio/base
+    helm:
+      parameters:
+        - name: defaultRevision
+          value: "default"
+    targetRevision: v1.20.0
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+
