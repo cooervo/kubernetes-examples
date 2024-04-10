@@ -16,7 +16,9 @@ spec:
     path: 12-argocd-managing-argocd/helm/argocd/
     helm:
       valueFiles:
-      - ../../apps/argocd/argocd.values.yaml
+        # values files path relative to path field defined above
+        # therefore we need to go up 2 dir levels
+        - ../../apps/argocd/argocd.values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
