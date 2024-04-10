@@ -17,5 +17,15 @@ spec:
     path: 11-argocd-app-of-apps-sync-waves-istio/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
-
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 2
       

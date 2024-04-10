@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: my-app-of-apps
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -17,9 +19,9 @@ spec:
       selfHeal: true
       allowEmpty: true
     syncOptions:
+      - PruneLast=true
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
-      - PruneLast=true
     retry:
       limit: 2
       

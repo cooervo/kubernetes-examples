@@ -3,8 +3,10 @@ kind: Application
 metadata:
   name: istio-base-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  # annotations:
+  #   argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   # Source using istio/base helm chart
@@ -16,8 +18,19 @@ spec:
       parameters:
         - name: defaultRevision
           value: "default"
+      namespace: istio-system
     targetRevision: 1.20.0
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
-
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+    retry:
+      limit: 2  
