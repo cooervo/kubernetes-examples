@@ -29,4 +29,3 @@ spec:
       - PruneLast=true
     retry:
       limit: 2
-      
