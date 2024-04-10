@@ -5,8 +5,8 @@ metadata:
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  # annotations:
-  #   argocd.argoproj.io/sync-wave: "0"
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   # Source using istio/base helm chart

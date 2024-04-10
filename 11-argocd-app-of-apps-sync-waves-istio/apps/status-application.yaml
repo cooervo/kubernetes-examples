@@ -17,6 +17,7 @@ spec:
     path: 11-argocd-app-of-apps-sync-waves-istio/apps/status-app/
   destination:
     server: https://kubernetes.default.svc
+    namespace: example
   syncPolicy:
     automated:
       prune: true
