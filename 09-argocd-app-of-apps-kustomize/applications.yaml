@@ -4,6 +4,7 @@ metadata:
   name: my-app-of-apps
   namespace: argocd
   finalizers:
+      # needed so resources are deleted when app is deleted as well
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default

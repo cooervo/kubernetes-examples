@@ -4,6 +4,7 @@ metadata:
   name: example-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   finalizers:
+      # needed so resources are deleted when app is deleted as well
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
