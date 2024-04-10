@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: status-app
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   annotations:
     # this has highest value therefore it will 
     # run after all istio apps have been installed

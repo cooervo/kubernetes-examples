@@ -3,7 +3,6 @@ Kubernetes examples with Pulumi, ArgoCD, Helm, Kustomize, and Service Mesh.
 ## To dos:
 
 - ArgoCD
-    - argocd + waves (a good candidate is istio)
     - argocd + AppSet
 
 - Add Prometheus + grafana
