@@ -14,9 +14,9 @@ spec:
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
     path: 12-argocd-managing-argocd/helm/argocd/
-    # helm:
-    #   valueFiles:
-    #   - 12-argocd-managing-argocd/apps/argocd/argocd.values.yaml
+    helm:
+      valueFiles:
+      - ../../apps/argocd/argocd.values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
