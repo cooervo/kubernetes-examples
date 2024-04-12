@@ -21,7 +21,7 @@ spec:
   template:
     # Application Metadata
     metadata:
-      name: "{{appName}}-application"
+      name: "{{.appName}}-application"
       namespace: argocd
     spec:
       # spec same as it would be in an Application, just replace generator values defined above.
@@ -33,7 +33,7 @@ spec:
         chart: "{{.chart}}"
         helm:
           releaseName: "{{.appName}}"
-          values: {{ .values | default nil }}
+          values: "{{.values | default nil}}"
         targetRevision: "{{.targetRevision}}"
       destination:
         server: 'https://kubernetes.default.svc'
