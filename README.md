@@ -2,9 +2,6 @@ Kubernetes examples with Pulumi, ArgoCD, Helm, Kustomize, and Service Mesh.
 
 ## To dos:
 
-- ArgoCD
-    - argocd + AppSet
-
 - Add Prometheus + grafana
 - Add NewRelic
 - Kyverno
