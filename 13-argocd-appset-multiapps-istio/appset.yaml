@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: main-appset
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+        - appName: istio-base
+          repoURL: https://istio-release.storage.googleapis.com/charts
+          chart: base
+          namespace: istio-system
+          targetRevision: 1.20.0
+        - appName: istiod
+          repoURL: https://istio-release.storage.googleapis.com/charts
+          chart: istiod
+          namespace: istio-system
+          targetRevision: 1.20.0
+  template:
+    # Application Metadata
+    metadata:
+      name: "{{appName}}-application"
+      namespace: argocd
+    spec:
+      # spec same as it would be in an Application, just replace generator values defined above.
+      # I used as reference: 11-argocd-app-of-apps-sync-waves-istio/apps/istiod-application.yaml
+      # which is an ArgoCD Application for the istiod Helm chart
+      project: default
+      source:
+        repoURL: "{{repoURL}}"
+        chart: "{{chart}}"
+        helm:
+          releaseName: "{{appName}}"
+        targetRevision: "{{targetRevision}}"
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        retry:
+          limit: 2  

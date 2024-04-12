@@ -14,9 +14,9 @@ spec:
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: istiod
-    targetRevision: 1.20.0
     helm:
       wait: true
+    targetRevision: 1.20.0
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
