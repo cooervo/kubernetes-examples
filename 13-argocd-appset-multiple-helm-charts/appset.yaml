@@ -13,16 +13,21 @@ spec:
           chart: base
           namespace: istio-system
           targetRevision: 1.20.0
+          syncWave: 0
         - appName: istiod
           repoURL: https://istio-release.storage.googleapis.com/charts
           chart: istiod
           namespace: istio-system
           targetRevision: 1.20.0
+          syncWave: 1
   template:
     # Application Metadata
     metadata:
       name: "{{.appName}}-application"
       namespace: argocd
+      annotations:
+        # order of deployment based on syncWave
+        argocd.argoproj.io/sync-wave: "{{.syncWave}}"
     spec:
       # spec same as it would be in an Application, just replace generator values defined above.
       # I used as reference: 11-argocd-app-of-apps-sync-waves-istio/apps/istiod-application.yaml
@@ -33,7 +38,6 @@ spec:
         chart: "{{.chart}}"
         helm:
           releaseName: "{{.appName}}"
-          values: "{{ .values | default nil }}"
         targetRevision: "{{.targetRevision}}"
       destination:
         server: 'https://kubernetes.default.svc'
