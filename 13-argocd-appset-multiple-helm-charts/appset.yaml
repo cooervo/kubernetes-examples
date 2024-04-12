@@ -4,6 +4,7 @@ metadata:
   name: main-appset
   namespace: argocd
 spec:
+  goTemplate: true # activate Go templating
   generators:
   - list:
       elements:
@@ -28,14 +29,15 @@ spec:
       # which is an ArgoCD Application for the istiod Helm chart
       project: default
       source:
-        repoURL: "{{repoURL}}"
-        chart: "{{chart}}"
+        repoURL: "{{.repoURL}}"
+        chart: "{{.chart}}"
         helm:
-          releaseName: "{{appName}}"
-        targetRevision: "{{targetRevision}}"
+          releaseName: "{{.appName}}"
+          values: {{ .values | default nil }}
+        targetRevision: "{{.targetRevision}}"
       destination:
         server: 'https://kubernetes.default.svc'
-        namespace: "{{namespace}}"
+        namespace: "{{.namespace}}"
       syncPolicy:
         automated:
           prune: true
