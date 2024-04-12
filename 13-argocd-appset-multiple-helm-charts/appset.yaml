@@ -33,7 +33,7 @@ spec:
         chart: "{{.chart}}"
         helm:
           releaseName: "{{.appName}}"
-          values: "{{.values | default nil}}"
+          values: "{{ .values | default nil }}"
         targetRevision: "{{.targetRevision}}"
       destination:
         server: 'https://kubernetes.default.svc'
