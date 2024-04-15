@@ -108,3 +108,5 @@ terraform.rc
 *keys*
 
 Pulumi.*.yaml
+
+*debug*
