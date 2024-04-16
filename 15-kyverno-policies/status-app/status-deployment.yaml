@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nodejs-server-port-80
-          image: cooervo/server-with-args:1.0
+          image: cooervo/server-with-args
           args: ["status app running 🙂👍"]
           ports:
             - containerPort: 80
