@@ -1,7 +1,6 @@
 # ClusterPolicies in this example:
     - pods image need a tag & no "latest" mutable tag allowed, only inmutable/deterministic tag such as 1.1.0
     - only allow images from specific registry
-    - should contain env label
     - no service should be NodePort only allowed for IngressGateway
 
 # install notes
