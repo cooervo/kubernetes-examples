@@ -1,1 +1,1 @@
-read and run the `16-external-secrets-operator/bootstrap.sh` script
+Read and run the `16-external-secrets-operator/bootstrap.sh` script
