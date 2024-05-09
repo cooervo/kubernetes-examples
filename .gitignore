@@ -110,3 +110,6 @@ terraform.rc
 Pulumi.*.yaml
 
 *debug*
+
+
+**/charts/*
