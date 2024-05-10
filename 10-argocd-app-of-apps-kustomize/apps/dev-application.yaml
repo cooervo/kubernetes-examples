@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prod-application
+  name: dev-application
   namespace: argocd # must be in a valid source ns as defined in the ArgoCD project
   finalizers:
       # needed so resources are deleted when app is deleted as well
@@ -11,13 +11,13 @@ spec:
   # Source using kustomize templates
   source:
     kustomize: # <---- NOTICE kustomize
-      namespace: prod
+      namespace: dev
     repoURL: https://github.com/cooervo/kubernetes-examples.git
     targetRevision: HEAD
-    path: 09-argocd-app-of-apps-kustomize/apps/overlays/prod/
+    path: 10-argocd-app-of-apps-kustomize/apps/overlays/dev/
   destination:
     server: https://kubernetes.default.svc
-    namespace: prod
+    namespace: dev
   syncPolicy:
     automated:
       prune: true
@@ -29,5 +29,4 @@ spec:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
       - PruneLast=true
-
       

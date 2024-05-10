@@ -2,7 +2,7 @@
 
 1. helm repo add argo https://argoproj.github.io/argo-helm
 2. helm pull argo/argo-cd --untar 
-3. cd 09-argocd-app-of-apps/helm
+3. cd 10-argocd-app-of-apps/helm
 4. update  following file in argocd.values.yaml with desired namespaces:
   `config.params.application.namespaces: "default, example-namespace"`
 5. helm install argocd argo-cd/ \
@@ -12,7 +12,7 @@
 7. visit http://localhost:8080 and login with the default username & password
     username: `admin`
     get password from command: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
-8. cd 09-argocd-app-of-apps-kustomize/
+8. cd 10-argocd-app-of-apps-kustomize/
 9. manually install the app of apps:
     8.1. Go to argocd UI >  Applications > Create > Copy paste manifest yaml of the app of apps: `7-argocd-app-of-apps/applications.yaml`
     8.2. kubectl apply -f applications.yaml 
