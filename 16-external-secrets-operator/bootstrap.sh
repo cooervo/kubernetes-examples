@@ -5,7 +5,7 @@ set -u
 # Exit on error within any functions or subshells.
 set -o pipefail
 
-export GCP_PROJECT_ID="sandbox-38591" 
+export GCP_PROJECT_ID="MY_PROJECT_ID" 
 export ZONE="us-central1-a"
 export REGION="us-central1"
 export ESO_GCP_SERVICE_ACCOUNT="sa-external-secrets"

@@ -17,4 +17,4 @@ EXPOSE 80
 ENTRYPOINT ["node", "app.js"]
 
 # CMD specifies the default response text
-CMD ["use Docker CMD or Kubernetes spec.containers.args to override my response"]
+CMD ["use Docker CMD or Kubernetes spec.containers.args to override my response!"]
