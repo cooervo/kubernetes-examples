@@ -26,16 +26,16 @@ echo "
 Bind the Service Accounts 
 ========================="
 
-#Create GCP service account
+# Create GCP service account
 gcloud iam service-accounts create $ESO_GCP_SERVICE_ACCOUNT \
 --project=$GCP_PROJECT_ID
 
-#Create IAM role bindings
+# Create IAM role bindings
 gcloud projects add-iam-policy-binding $GCP_PROJECT_ID \
 --member "serviceAccount:$ESO_GCP_SERVICE_ACCOUNT@$GCP_PROJECT_ID.iam.gserviceaccount.com" \
 --role "roles/secretmanager.secretAccessor"
 
-#Allow kubernetes service account to impersonate GCP service account
+# Allow kubernetes service account to impersonate GCP service account
 gcloud iam service-accounts add-iam-policy-binding $ESO_GCP_SERVICE_ACCOUNT@$GCP_PROJECT_ID.iam.gserviceaccount.com \
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:$GCP_PROJECT_ID.svc.id.goog[$ESO_K8S_NAMESPACE/$ESO_K8S_SERVICE_ACCOUNT]"
