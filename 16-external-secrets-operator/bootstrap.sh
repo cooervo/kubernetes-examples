@@ -52,7 +52,7 @@ helm pull --repo https://charts.external-secrets.io external-secrets --untar
 helm install external-secrets \
    helm/charts/external-secrets/external-secrets \
     -n external-secrets \
-    --create-namespace \
+    --create-namespace
 
 # add annotation to the k8s service account
 kubectl annotate sa $ESO_K8S_SERVICE_ACCOUNT \
