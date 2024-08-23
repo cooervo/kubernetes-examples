@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: status-app
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/whitelist-source-range: "181.61.209.127" # Add your IPs or CIDR ranges, here separated by commas
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: status.cooervo.com
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: status-app
+                port:
+                  number: 80
+            path: /

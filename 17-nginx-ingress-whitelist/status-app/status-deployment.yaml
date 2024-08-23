@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-app
+  namespace: default
+  labels:
+    app: status-app
+spec:
+  selector:
+    matchLabels:
+      app: status-app
+  template:
+    metadata:
+      labels:
+        app: status-app
+    spec:
+      containers:
+        - name: nodejs-server-port-80
+          image: cooervo/server-with-args:v1.0
+          args: ["status app running 🙂👍"]
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
