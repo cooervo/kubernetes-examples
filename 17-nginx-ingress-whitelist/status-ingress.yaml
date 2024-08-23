@@ -4,7 +4,7 @@ metadata:
   name: status-app
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/whitelist-source-range: "181.61.209.127" # Add your IPs or CIDR ranges, here separated by commas
+    nginx.ingress.kubernetes.io/whitelist-source-range: "100.0.0.127" # Replace with your allowed IPs or CIDR ranges, here separated by commas
 spec:
   ingressClassName: nginx
   rules:
