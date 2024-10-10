@@ -1,0 +1,9 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: status-app
+  namespace: argocd
+spec:
+  source:
+    targetRevision: dev
+    path: kubernetes/kustomize/overlays/dev/custom-apps/status/

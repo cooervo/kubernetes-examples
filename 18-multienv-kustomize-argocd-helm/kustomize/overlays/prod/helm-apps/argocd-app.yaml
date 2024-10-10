@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  source:
+    targetRevision: prod
+    helm:
+      valueFiles:
+        # helm.valuesFiles path is relative to spec.source.path of base template
+        - ../../values/argocd/prod.values.yaml

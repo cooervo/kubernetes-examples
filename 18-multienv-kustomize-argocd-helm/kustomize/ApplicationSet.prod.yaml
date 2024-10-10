@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset-prod
+  namespace: argocd
+spec:
+  goTemplate: true # activate Go templating
+  generators:
+  - list:
+      elements:
+        # App of apps for all helm charts
+        - appName: helm-apps
+          appType: "helm"
+          path: kubernetes/kustomize/overlays/prod/helm-apps
+          syncWave: 0
+        # App of apps for all non helm charts
+        - appName: custom-apps
+          appType: "custom"
+          path: kubernetes/kustomize/overlays/prod/custom-apps
+          syncWave: 1
+  template:
+    # Application Metadata
+    metadata:
+      name: "{{.appName}}"
+      namespace: argocd
+      finalizers:
+        # needed so k8s resources are deleted when app is deleted as well
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        appType: "{{.appType}}"
+      annotations:
+        # order of deployment based on syncWave
+        argocd.argoproj.io/sync-wave: "{{.syncWave}}"
+    spec:
+      # spec same as it (spec field) would be in a
+      # typical ArgoCD Application.yaml, just replace 
+      # generator values defined above.
+      project: default
+      source:
+        repoURL: git@github.com:my-org/my-example-repo.git
+        targetRevision: prod
+        path: "{{.path}}" # path must point to kustomize overlays        
+      destination:
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+        retry:
+          limit: 2

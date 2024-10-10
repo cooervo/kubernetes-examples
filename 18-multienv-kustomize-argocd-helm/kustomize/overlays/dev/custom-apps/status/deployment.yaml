@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-app
+spec:
+  selector:
+    matchLabels:
+      app: status-app
+  template:
+    spec:
+      containers:
+        - name: busybox-httpd
+          env:
+            - name: MESSAGE
+              value: "dev, ok"
